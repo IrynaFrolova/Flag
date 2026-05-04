@@ -1,18 +1,26 @@
 package ua.edu.znu.flags;
 
-public class FlagChecker {
+/**
+ * Утилітарний клас для перевірки відповідей користувача.
+ */
+public final class FlagChecker {
 
-    // Рефакторинг для генерації виключення при некоректних даних
+    private FlagChecker() {
+        throw new AssertionError("Утилітарний клас — не для інстанціювання");
+    }
+
     public static boolean isCorrectAnswer(String userInput, String expectedCountry) {
-        // Перевірка на null або пусті значення
-        if (userInput == null || expectedCountry == null) {
-            throw new IllegalArgumentException("Вхідні дані не повинні бути null");
-        }
-
-        if (userInput.trim().isEmpty() || expectedCountry.trim().isEmpty()) {
-            throw new IllegalArgumentException("Вхідні дані не повинні бути порожніми");
-        }
-
+        validateNotBlank(userInput, "userInput");
+        validateNotBlank(expectedCountry, "expectedCountry");
         return expectedCountry.equalsIgnoreCase(userInput.trim());
+    }
+
+    private static void validateNotBlank(String value, String name) {
+        if (value == null) {
+            throw new IllegalArgumentException(name + " не повинен бути null");
+        }
+        if (value.trim().isEmpty()) {
+            throw new IllegalArgumentException(name + " не повинен бути порожнім");
+        }
     }
 }

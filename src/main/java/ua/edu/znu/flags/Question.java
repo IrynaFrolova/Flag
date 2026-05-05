@@ -1,10 +1,12 @@
 package ua.edu.znu.flags;
 
 import java.util.List;
+import javax.swing.JPanel;
 
 /**
  * Питання тесту з варіантами відповідей.
- * Тип питання (одно- або багатоваріантне) задається стратегією {@link QuestionRenderer}.
+ * Тип питання (одно- або багатоваріантне) задається стратегією
+ * {@link QuestionRenderer}.
  */
 public final class Question {
 
@@ -14,7 +16,8 @@ public final class Question {
     private final QuestionRenderer renderer;
 
     /**
-     * Створює нове питання з фіксованими списками варіантів і правильних відповідей.
+     * Створює нове питання з фіксованими списками варіантів і правильних
+     * відповідей.
      *
      * @param questionText   текст питання
      * @param options        список варіантів відповідей
@@ -39,8 +42,26 @@ public final class Question {
         return options;
     }
 
-    public QuestionRenderer getRenderer() {
-        return renderer;
+    /**
+     * Будує елементи відповіді для цього питання у наданій панелі.
+     * Метод доданий для забезпечення відповідності закону Деметри -
+     * клас QuizApp більше не звертається до renderer напряму.
+     *
+     * @param panel панель, у яку додаються елементи інтерфейсу
+     */
+    public void renderInto(final JPanel panel) {
+        renderer.renderInto(panel, this);
+    }
+
+    /**
+     * Збирає вибрані користувачем відповіді з елементів панелі.
+     * Метод доданий для забезпечення відповідності закону Деметри.
+     *
+     * @param panel панель, з якої збираються вибрані варіанти
+     * @return список індексів обраних варіантів
+     */
+    public List<Integer> collectAnswers(final JPanel panel) {
+        return renderer.collectAnswers(panel);
     }
 
     /**

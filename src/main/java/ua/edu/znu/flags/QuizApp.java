@@ -21,9 +21,6 @@ import javax.swing.WindowConstants;
  */
 public final class QuizApp {
 
-    private static final QuestionRenderer SINGLE = new SingleChoiceRenderer();
-    private static final QuestionRenderer MULTI  = new MultiChoiceRenderer();
-
     private JFrame frame;
     private JTextArea questionArea;
     private JPanel answerPanel;
@@ -46,12 +43,12 @@ public final class QuizApp {
                 "Яка столиця України?",
                 List.of("Київ", "Львів", "Одеса"),
                 List.of(0),
-                SINGLE));
+                new SingleChoiceRenderer()));
         questions.add(new Question(
                 "Які з цих міст знаходяться в Україні?",
                 List.of("Київ", "Москва", "Лондон", "Львів"),
                 List.of(0, 3),
-                MULTI));
+                new MultiChoiceRenderer()));
     }
 
     private void initializeUI() {
@@ -123,14 +120,14 @@ public final class QuizApp {
         Question q = questions.get(currentQuestionIndex);
         questionArea.setText("Питання " + (currentQuestionIndex + 1)
                 + ": " + q.getQuestionText());
-        q.getRenderer().renderInto(answerPanel, q);
+        q.renderInto(answerPanel);
         answerPanel.revalidate();
         answerPanel.repaint();
     }
 
     private void processAnswer() {
         Question q = questions.get(currentQuestionIndex);
-        List<Integer> userAnswers = q.getRenderer().collectAnswers(answerPanel);
+        List<Integer> userAnswers = q.collectAnswers(answerPanel);
 
         if (userAnswers.isEmpty()) {
             showWarning("Помилка вводу",

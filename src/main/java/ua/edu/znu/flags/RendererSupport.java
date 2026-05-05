@@ -16,7 +16,13 @@ final class RendererSupport {
         throw new AssertionError("Утилітарний клас");
     }
 
-    static List<Integer> collectSelectedIndices(JPanel panel) {
+    /**
+     * Збирає індекси усіх натиснутих AbstractButton у переданій панелі.
+     *
+     * @param panel панель з елементами відповідей
+     * @return список індексів обраних варіантів
+     */
+    static List<Integer> collectSelectedIndices(final JPanel panel) {
         List<Integer> answers = new ArrayList<>();
         for (Component c : panel.getComponents()) {
             if (c instanceof AbstractButton button && button.isSelected()) {

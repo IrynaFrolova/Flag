@@ -14,7 +14,7 @@ import javax.swing.SwingUtilities;
 /**
  * Гра «Впізнай прапор». Користувач вводить назву країни і клікає на її прапор.
  */
-public class Flags extends JFrame implements ActionListener {
+public final class Flags extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 1L;
     private static final String IMAGES_PATH = "/images/";
@@ -25,6 +25,9 @@ public class Flags extends JFrame implements ActionListener {
             "<html>Введіть назву країни в текстове поле і виконайте"
                     + "<br>клік на її прапорі</html>");
 
+    /**
+     * Створює та налаштовує головне вікно гри.
+     */
     public Flags() {
         super();
         configureFrame();
@@ -47,7 +50,7 @@ public class Flags extends JFrame implements ActionListener {
         add(createFlagButton("belgium.gif", "Бельгія"));
     }
 
-    private JButton createFlagButton(String iconName, String countryCode) {
+    private JButton createFlagButton(final String iconName, final String countryCode) {
         URL url = getClass().getResource(IMAGES_PATH + iconName);
         if (url == null) {
             throw new IllegalStateException("Ресурс не знайдено: " + iconName);
@@ -65,7 +68,7 @@ public class Flags extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
+    public void actionPerformed(final ActionEvent ae) {
         try {
             boolean correct = FlagChecker.isCorrectAnswer(
                     jtf.getText(), ae.getActionCommand());
@@ -75,7 +78,12 @@ public class Flags extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * Точка входу у програму.
+     *
+     * @param args аргументи командного рядка (не використовуються)
+     */
+    public static void main(final String[] args) {
         SwingUtilities.invokeLater(Flags::new);
     }
 }

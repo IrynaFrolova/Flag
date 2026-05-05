@@ -19,7 +19,7 @@ import javax.swing.WindowConstants;
 /**
  * Застосунок-тест із одно- та багатоваріантними питаннями.
  */
-public class QuizApp {
+public final class QuizApp {
 
     private static final QuestionRenderer SINGLE = new SingleChoiceRenderer();
     private static final QuestionRenderer MULTI  = new MultiChoiceRenderer();
@@ -33,6 +33,9 @@ public class QuizApp {
     private int score;
     private String userName = "Анонім";
 
+    /**
+     * Створює застосунок: ініціалізує список питань і будує користувацький інтерфейс.
+     */
     public QuizApp() {
         initializeQuestions();
         initializeUI();
@@ -145,7 +148,7 @@ public class QuizApp {
         displayQuestion();
     }
 
-    private void showWarning(String title, String message) {
+    private void showWarning(final String title, final String message) {
         JOptionPane.showMessageDialog(frame, message, title,
                 JOptionPane.WARNING_MESSAGE);
     }
@@ -158,7 +161,12 @@ public class QuizApp {
         frame.dispose();
     }
 
-    public static void main(String[] args) {
+    /**
+     * Точка входу у програму.
+     *
+     * @param args аргументи командного рядка (не використовуються)
+     */
+    public static void main(final String[] args) {
         SwingUtilities.invokeLater(QuizApp::new);
     }
 }
